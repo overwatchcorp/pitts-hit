@@ -1,0 +1,104 @@
+body {
+	background: black;
+	font-family:"Verdana", Arial, sans-serif;
+}
+
+svg {
+	/*Center SVG*/
+	display: block;
+	margin: auto;
+	background: Gray;
+	border: black;
+}
+
+ellipse {
+  fill: #fff;
+}
+
+#fixation {
+	fill: Gray;
+	stroke: purple;
+}
+
+#line {
+	stroke: purple;
+}
+
+#cross {
+	color: yellow; /*this isn't working in chrome*/
+	font-size: 50px;
+	font-family: sans-serif;
+}
+
+#hash {
+	color: navy;/*this isn't working in chrome*/
+	font-size: 50px;
+	font-family: sans-serif;
+}
+
+
+.updatable {
+	color:yellow;
+	font-size: 12px;
+	display: none; /*hides elements*/	
+		
+}
+
+
+#typeResp {
+	color:black;
+}
+
+#Resp {
+/*	border: 2px solid orange;*/
+/*	margin-right: 50px auto;*/
+	font: 18px Verdana, Geneva, Arial, Helvetica, sans-serif;	
+	margin-left:auto;
+	margin-right:auto;		
+}
+
+#Resp input {
+	width: 200px;		
+	font: 35px Verdana, Geneva, Arial, Helvetica, sans-serif;	
+	background-color: black;		
+	color: yellow;		
+	border: 0px solid #284279;		
+	margin-right: 0px auto;
+	text-align: center;
+}
+
+#Resp input:focus {
+    outline: none;
+}
+
+
+textarea#styled {
+	display: block;
+    margin-left: auto;
+    margin-right: auto;
+	width: 600px;
+	height: 120px;
+	border: 3px solid #cccccc;
+	padding: 5px;
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+#followup {
+	color: white;	
+	font-size: 20px;	
+	}
+	
+#followupTable {
+	color: white;
+	border: 1px solid black;
+	width: 600px;
+	margin-top:20px;
+	margin-left:auto;
+	margin-right:auto;
+	background-color:black;
+	border-collapse:collapse;
+}
+
+#outputSummary {
+	color: yellow;
+}
