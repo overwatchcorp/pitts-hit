@@ -4,16 +4,36 @@ const submitURL = 'https://example.com/submit';
 
 form.submit((e) => {
   e.preventDefault();
+  const now = new Date().toUTCString();
+  d3.select("#date").node().value = now;
+  $("#tottime").attr('value', now);
+  $("#totbounce").attr('value', $("#bounces").text());
   const formData = form.serializeArray();
-  fetch(submitURL, {
-    method: 'POST',
-    mode: 'cors',
-    headers: {
-      'Content-Type': 'application/json'
-      // 'Content-Type': 'application/x-www-form-urlencoded',
-    },
-    body: JSON.stringify({ formData }),
-  }).then((r) => console.log(JSON.stringify(r)));
+  // store data in database
+  let tt = sessionStorage.getItem('trialType');
+  console.log('trial', tt)
+  if (tt === "blank") {
+    sessionStorage.trialType = "firstCross";
+    ReloadPage();
+  }
+  else if (tt === "firstCross") {
+    sessionStorage.trialType = "secondCross";
+    ReloadPage();
+  }
+  else if (tt === "secondCross") {
+    console.log(formData);
+    /*
+    fetch(submitURL, {
+      method: 'POST',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json'
+        // 'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: JSON.stringify({ formData }),
+    }).then((r) => console.log(JSON.stringify(r)));
+    */
+  }
   return false;
 });
 
@@ -162,7 +182,7 @@ function startCross1() {
     .attrTween("x", function(d, i, a) {
       return function(t) {
         var ip_value = d3.interpolate(a, -50)(t);
-        console.log(ip_value);
+        // console.log(ip_value);
 
         curPos = [0, 0, 0];
         curPos[0] = cross1.text();
@@ -186,7 +206,7 @@ function startCross2() {
     .attrTween("x", function(d, i, a) {
       return function(t) {
         var ip_value = d3.interpolate(a, -50)(t);
-        console.log(ip_value);
+        // console.log(ip_value);
 
         curPos = [0, 0, 0];
         curPos[0] = cross1.text();
@@ -261,8 +281,22 @@ var startTime = 1000,
 d3.timer(function() {
   // Define current time from HTML and make test variable (can be commented out/deleted)
   var curTime = parseFloat($("#totalTime").text()),
-    test = $("#test"),
-    trialType = $("#trialType").text();
+    test = $("#test");
+
+  //  trialType = $("#trialType").text();
+
+  // we store the trial type in the session storage so that we can keep track of what trial we are in
+  // when the stim code reloads the page
+  // using session storage so that the experiment resets when the tab is closed and reopened
+  let trialType = sessionStorage.getItem('trialType');
+  // if this is the first trial, populate local storage
+  if (trialType === null) {
+    // first session--no distractor cross in the screen
+    // followed by firstCross and then secondCross
+    trialType = 'blank';
+    sessionStorage.setItem('trialType', 'blank');
+  }
+  console.log(trialType);
 
   test.text(event2Time);
 

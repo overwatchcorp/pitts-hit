@@ -42,9 +42,11 @@
 	
 	<!-- These variables are collected for each trial (demarcated with time0, time1 etc..) -->
 	<input type='hidden' name='tottime1' id="tottime"/>
+	<input type='hidden' name='tottime' id="tottime"/>
 	<input type='hidden' name='time1' id="time"/>
 	<input type='hidden' name='trialType1' id="trialType" value='blank'/>
 	<input type='hidden' name='totbounce1' id="totbounce"/>
+	<input type='hidden' name='totbounce' id="totbounce"/>
 	<input type='hidden' name='fullPath1' id="fullPath"/>
 	
 	
@@ -63,22 +65,9 @@
 
 
 <script type="text/javascript">
-
 // For some reason firefox doesn't read display from the CSS so I ghave to change it here. 
 d3.selectAll(".updatable")
 	.style("display","none");
-
-// Assigns a new time when the form is submitted -- effectly used for reaction time
-// (basically, this is a way of moving js variables to PHP forms)
-d3.select("#signup")
-	.on("submit", function() {
-		d3.select("#date").node().value = new Date().toUTCString();
-		d3.select("#tottime").node().value = d3.select("#totalTime").node().innerHTML;
-		d3.select("#totbounce").node().value = d3.select("#bounces").node().innerHTML;
-		d3.select("#fullPath").node().value = d3.select("#distpath").node().innerHTML;
-		
-			
-	});
 </script>
 
 </body>
