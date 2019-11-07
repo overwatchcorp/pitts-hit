@@ -1,5 +1,6 @@
 // override form submit action so we can capture the data
 const form = $('#signup');
+const subjectID = Math.floor(10000 + Math.random() * 90000);
 
 form.submit((e) => {
   e.preventDefault();
@@ -17,7 +18,7 @@ form.submit((e) => {
   if (res === null) res = [];
   // the nubmer of times the white letters crossed the middle line
   const actualCrosses = $("#bounces").text();
-  // the number of crosses the participant inputted in the form
+  // get the number of crosses the participant put into the form
   const crossesRes = formData.find(r => r.name === 'respInput1').value;
   const trialResults = { trialType: tt, actualCrosses, crossesRes };
   // append trial results to the array
@@ -42,7 +43,7 @@ form.submit((e) => {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ value1: JSON.stringify(res) })
+      body: JSON.stringify({ value1: subjectID, value2: JSON.stringify(res) })
     }).then((r) => r.text())
       .then(console.log);
   }
@@ -341,6 +342,7 @@ d3.timer(function() {
   // END //
   if (curTime > endEvent) {
     if (endStarted == "False") {
+      // this block runs once at the start of the end event
       // Keep Track of the paths of the distractors etc.
       distpath = $("#distpath");
       output = "";
@@ -383,7 +385,7 @@ function animatePleaseType() {
     d3.selectAll("#typeResp")
       .transition()
       .text(
-        "Did you notice anything on this last trial that was different from the first three trials of the experiment? [Y/N]"
+        "Did you notice anything on this last trial that was different from the first three trials of the experiment? [Y/N]? Subject ID: " + subjectID
       )
       .duration(250)
       .style("color", "white"); // changes response prompt to yellow
