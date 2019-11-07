@@ -26,14 +26,21 @@ form.submit((e) => {
   // save to session storage
   sessionStorage.setItem('stimData', JSON.stringify(res));
 
-  if (tt === "blank") {
-    sessionStorage.trialType = "firstCross";
+  if (tt === "blank1") {
+    sessionStorage.trialType = "blank2";
     ReloadPage();
   }
+  else if (tt === "blank2") {
+    sessionStorage.trialType = "secondCross";
+    ReloadPage();
+  }
+  // students wanted 2 blank and then 1 cross trial so I removed the firstCross trial
+  /*
   else if (tt === "firstCross") {
     sessionStorage.trialType = "secondCross";
     ReloadPage();
   }
+  */
   else if (tt === "secondCross") {
     console.log(res);
     fetch('https://maker.ifttt.com/trigger/pitts_hit/with/key/bkQUNmpBBdm3JpYQniuksI', { 
@@ -306,8 +313,8 @@ d3.timer(function() {
   if (trialType === null) {
     // first session--no distractor cross in the screen
     // followed by firstCross and then secondCross
-    trialType = 'blank';
-    sessionStorage.setItem('trialType', 'blank');
+    trialType = 'blank1';
+    sessionStorage.setItem('trialType', 'blank1');
   }
 
   test.text(event2Time);
