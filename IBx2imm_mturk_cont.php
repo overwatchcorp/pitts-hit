@@ -2,13 +2,13 @@
 <html>
 	<head>
 		<title>Mechanical Turk HIT</title>	
+    <meta charset="UTF-8">
 		<!-- Load External js scripts -->
-	    <script type="text/javascript" src="http://mbostock.github.com/d3/d3.js?1.29.1"></script>
+    <script type="text/javascript" src="http://mbostock.github.com/d3/d3.js?1.29.1"></script>
 		<script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/1.4.0/jquery.js'></script>
 		
 		<!-- CSS styling goes in a separate document -->
 		<link href="IBx2_mturk.css" rel="stylesheet" type="text/css">
-	
 	</head>
 <body>
 	

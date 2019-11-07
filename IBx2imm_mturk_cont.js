@@ -1,6 +1,5 @@
 // override form submit action so we can capture the data
 const form = $('#signup');
-const submitURL = 'https://example.com/submit';
 
 form.submit((e) => {
   e.preventDefault();
@@ -9,9 +8,23 @@ form.submit((e) => {
   $("#tottime").attr('value', now);
   $("#totbounce").attr('value', $("#bounces").text());
   const formData = form.serializeArray();
-  // store data in database
+  // store trial type in local database
   let tt = sessionStorage.getItem('trialType');
-  console.log('trial', tt)
+ 
+  // append white letters cross center line count and responses to array database
+  let res = JSON.parse(sessionStorage.getItem('stimData'))
+  // if this is the first trial, set the results to an empty arrray
+  if (res === null) res = [];
+  // the nubmer of times the white letters crossed the middle line
+  const actualCrosses = $("#bounces").text();
+  // the number of crosses the participant inputted in the form
+  const crossesRes = formData.find(r => r.name === 'respInput1').value;
+  const trialResults = { trialType: tt, actualCrosses, crossesRes };
+  // append trial results to the array
+  res.push(trialResults);
+  // save to session storage
+  sessionStorage.setItem('stimData', JSON.stringify(res));
+
   if (tt === "blank") {
     sessionStorage.trialType = "firstCross";
     ReloadPage();
@@ -21,18 +34,17 @@ form.submit((e) => {
     ReloadPage();
   }
   else if (tt === "secondCross") {
-    console.log(formData);
-    /*
-    fetch(submitURL, {
-      method: 'POST',
-      mode: 'cors',
+    console.log(res);
+    fetch('https://maker.ifttt.com/trigger/pitts_hit/with/key/bkQUNmpBBdm3JpYQniuksI', { 
+      method: 'POST', 
+      mode: 'cors', 
       headers: {
+        'Accept': 'application/json',
         'Content-Type': 'application/json'
-        // 'Content-Type': 'application/x-www-form-urlencoded',
       },
-      body: JSON.stringify({ formData }),
-    }).then((r) => console.log(JSON.stringify(r)));
-    */
+      body: JSON.stringify({ value1: JSON.stringify(res) })
+    }).then((r) => r.text())
+      .then(console.log);
   }
   return false;
 });
@@ -296,7 +308,6 @@ d3.timer(function() {
     trialType = 'blank';
     sessionStorage.setItem('trialType', 'blank');
   }
-  console.log(trialType);
 
   test.text(event2Time);
 
