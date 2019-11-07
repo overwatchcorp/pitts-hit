@@ -52,7 +52,7 @@ form.submit((e) => {
       },
       body: JSON.stringify({ value1: subjectID, value2: JSON.stringify(res) })
     }).then((r) => r.text())
-      .then(console.log);
+      .then(alert);
   }
   return false;
 });
